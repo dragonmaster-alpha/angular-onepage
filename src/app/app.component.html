@@ -1,0 +1,108 @@
+
+<div class="container">
+  <div id="content">
+    <div id="main-content">
+      <mat-tab-group>
+        <mat-tab label="Shift Management">
+          
+<ngx-datatable
+#table
+class='material striped bootstrap'
+[columnMode]="'flex'"
+[headerHeight]="50"
+[footerHeight]="50"
+[rowHeight]="'auto'"
+[limit]="10"
+[rows]='rows'
+>
+
+<!-- Other Columns -->
+<ngx-datatable-column [flexGrow]="0.5" name="Shift" prop="shift">
+  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      <mat-form-field>
+        <input matInput value="shift" [(ngModel)]="row.shift" [disabled]="!isEditable[rowIndex]">
+      </mat-form-field>
+  </ng-template>
+</ngx-datatable-column> 
+
+<ngx-datatable-column [flexGrow]="1.5" name="Area Name" prop="name">
+  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      <mat-form-field>
+        <input matInput value="name" [(ngModel)]="row.name" [disabled]="!isEditable[rowIndex]">
+      </mat-form-field>
+  </ng-template>
+</ngx-datatable-column> 
+
+<ngx-datatable-column [flexGrow]="1.5"name="Start Time" prop="start">
+  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      <mat-form-field>
+        <input matInput value="start" [(ngModel)]="row.start" [disabled]="!isEditable[rowIndex]">
+      </mat-form-field>
+  </ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column [flexGrow]="1.5" name="End Time" prop="end">
+  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+    <mat-form-field>
+      <input matInput value="end" [(ngModel)]="row.end" [disabled]="!isEditable[rowIndex]">
+    </mat-form-field>
+  </ng-template>
+</ngx-datatable-column>
+<!-- Column: Editing Mode-->
+<ngx-datatable-column [flexGrow]="0.5" name="Action">
+  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+    ngx-datatable-cell-template>      
+    <!-- Pencil icon -->
+    <i class="fa fa-pencil" 
+       title="Modify"
+       *ngIf="!this.isEditable[rowIndex]" 
+       (click)="this.isEditable[rowIndex]=!this.isEditable[rowIndex]"></i>
+
+    <!-- Save/Delete icons -->
+    <i class="fa fa-floppy-o" 
+      *ngIf="this.isEditable[rowIndex]" 
+      title="Save" 
+      (click)="save(row, rowIndex);" style="margin-right: 15px"></i>
+    <i class="fa fa-trash-o" 
+      *ngIf="this.isEditable[rowIndex]"
+      title="Delete" 
+      (click)="delete(row,rowIndex)"></i>
+  </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-footer *ngIf="true">
+  <ng-template
+    ngx-datatable-footer-template
+    let-rowCount="rowCount"
+    let-pageSize="pageSize"
+    let-selectedCount="selectedCount"
+    let-curPage="curPage"
+    let-offset="offset"
+  >
+  <div class="flex-wrapper">
+    <div style="padding: 5px 10px">
+      <div><strong>Summary</strong>: Shift Management</div>
+      <hr style="width:100%" />
+      <div>Rows: {{ rowCount }} | Size: {{ pageSize }} | Current: {{ curPage }} | Offset: {{ offset }}</div>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="addEntry();">Add Entry</button>
+    </div>
+  </div>
+  </ng-template>
+</ngx-datatable-footer>
+</ngx-datatable>
+
+        </mat-tab>
+        <mat-tab label="Incidents Reporting">
+          Incidents Reporting
+        </mat-tab>
+        <mat-tab label="Downtime Codes">
+          Downtime Codes
+        </mat-tab>
+        <mat-tab label="Dashboards">
+          Dashboards
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
